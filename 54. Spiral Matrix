@@ -1,0 +1,30 @@
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        res = []
+        if not matrix :
+            return []
+        row = len(matrix)
+        col = len(matrix[0])
+        for i in range(row//2) :
+            try :
+                # top
+                res+=matrix[0]
+                matrix = matrix[1:]
+                # mid
+                for j in range(len(matrix)-1) :
+                    res.append(matrix[j][-1])
+                    matrix[j] = matrix[j][:-1]
+                # button
+                res+=matrix[-1][::-1]
+                matrix = matrix[:-1]
+                if not matrix or not matrix[0] :
+                    break
+                # head
+                for j in range(len(matrix)-1,0,-1) :
+                    res.append(matrix[j][0])
+                    matrix[j] = matrix[j][1:]
+            except IndexError :
+                matrix=[]
+                break
+        res = res + matrix[0] if matrix else res
+        return res
