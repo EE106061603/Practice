@@ -1,0 +1,12 @@
+class Solution:
+    def countPrimes(self, n: int) -> int:
+        if n<=2 :
+            return 0
+        isPrime = [1]*n
+        isPrime[0] = isPrime[1] = 0
+        prime = 2
+        while prime*prime < n :
+            if isPrime[prime]==1 :
+                isPrime[prime*prime:n:prime] = [0] *(1+(n-prime*prime-1)//prime)
+            prime+=1 if prime==2 else 2
+        return sum(isPrime)
